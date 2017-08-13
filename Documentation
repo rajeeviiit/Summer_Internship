@@ -1,0 +1,20 @@
+Step 1: Generate Keystore (only once)
+
+keytool -genkey -v -keystore my.keystore -keyalg RSA -keysize 2048 -validity 10000 -alias app
+
+keystore password : 7048498159,9934534420
+
+
+
+
+Step 2: Sign & Verify
+
+jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore my_key.keystore my-app.apk myApp
+
+jarsigner -verify -verbose my_application.apk
+
+
+Step 3: Zipalign
+zipalign which is a tool provided by the Android SDK found in e.g. %ANDROID_HOME%/sdk/build-tools/24.0.2/ is a mandatory optimzation step if you want to upload the apk to the Play Store
+
+zipalign -p 4 my.apk my-aligned.apk
